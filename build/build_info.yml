@@ -1,0 +1,58 @@
+cmake:
+  application:
+    configuration-dir: '/home/gucio/zephyrproject/zephyr/samples/basic/blinky'
+    source-dir: '/home/gucio/zephyrproject/zephyr/samples/basic/blinky'
+  board:
+    name: 'stm32f746g_disco'
+    path:
+     - '/home/gucio/zephyrproject/zephyr/boards/st/stm32f746g_disco'
+    qualifiers: 'stm32f746xx'
+    revision: ''
+  devicetree:
+    bindings-dirs:
+     - '/home/gucio/zephyrproject/zephyr/dts/bindings'
+    files:
+     - '/home/gucio/zephyrproject/zephyr/boards/st/stm32f746g_disco/stm32f746g_disco.dts'
+    include-dirs:
+     - '/home/gucio/zephyrproject/modules/hal/ambiq/dts'
+     - '/home/gucio/zephyrproject/modules/hal/atmel/include'
+     - '/home/gucio/zephyrproject/modules/hal/bouffalolab/include'
+     - '/home/gucio/zephyrproject/modules/hal/bouffalolab/include/zephyr'
+     - '/home/gucio/zephyrproject/modules/hal/gigadevice/include'
+     - '/home/gucio/zephyrproject/modules/hal/microchip/include'
+     - '/home/gucio/zephyrproject/modules/hal/microchip/dts'
+     - '/home/gucio/zephyrproject/modules/hal/nuvoton/dts'
+     - '/home/gucio/zephyrproject/modules/hal/nxp/dts'
+     - '/home/gucio/zephyrproject/modules/hal/stm32/dts'
+     - '/home/gucio/zephyrproject/modules/hal/ti/dts'
+     - '/home/gucio/zephyrproject/zephyr/include'
+     - '/home/gucio/zephyrproject/zephyr/include/zephyr'
+     - '/home/gucio/zephyrproject/zephyr/dts/common'
+     - '/home/gucio/zephyrproject/zephyr/dts/vendor'
+     - '/home/gucio/zephyrproject/zephyr/dts/rx'
+     - '/home/gucio/zephyrproject/zephyr/dts/x86'
+     - '/home/gucio/zephyrproject/zephyr/dts/xtensa'
+     - '/home/gucio/zephyrproject/zephyr/dts/sparc'
+     - '/home/gucio/zephyrproject/zephyr/dts/riscv'
+     - '/home/gucio/zephyrproject/zephyr/dts/posix'
+     - '/home/gucio/zephyrproject/zephyr/dts/arm64'
+     - '/home/gucio/zephyrproject/zephyr/dts/arm'
+     - '/home/gucio/zephyrproject/zephyr/dts/arc'
+     - '/home/gucio/zephyrproject/zephyr/dts'
+  kconfig:
+    files:
+     - '/home/gucio/zephyrproject/zephyr/boards/st/stm32f746g_disco/stm32f746g_disco_defconfig'
+     - '/home/gucio/zephyrproject/zephyr/samples/basic/blinky/prj.conf'
+    user-files:
+     - '/home/gucio/zephyrproject/zephyr/samples/basic/blinky/prj.conf'
+  toolchain:
+    name: 'zephyr'
+    path: '/home/gucio/zephyr-sdk-1.0.1'
+  zephyr:
+    version: '4.4.99'
+    zephyr-base: '/home/gucio/zephyrproject/zephyr'
+version: '0.1.0'
+west:
+  command: '/home/gucio/zephyrproject/.venv/bin/west build -p always -b stm32f746g_disco'
+  topdir: '/home/gucio/zephyrproject'
+  version: '1.5.0'
