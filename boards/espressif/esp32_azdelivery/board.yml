@@ -1,0 +1,6 @@
+board:
+  name: esp32_azdelivery
+  full_name: ESP32 AZDelivery
+  vendor: espressif
+  socs:
+    - name: esp32

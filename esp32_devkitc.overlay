@@ -1,0 +1,17 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+
+/ {
+    /* 1. Definiujemy alias, który połączy fabryczny program blinky z naszą diodą */
+    aliases {
+        led0 = &ext_led;
+    };
+
+    /* 2. Tworzymy węzeł (node) opisujący naszą fizyczną zewnętrzną diodę */
+    leds {
+        compatible = "gpio-leds";
+        ext_led: led_external {
+            gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
+            label = "External Yellow LED";
+        };
+    };
+};

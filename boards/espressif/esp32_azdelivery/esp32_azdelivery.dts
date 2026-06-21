@@ -1,0 +1,62 @@
+/dts-v1/;   //(mandatory) version marker, mowi kompilatorowi jakiej skladni uzywac
+
+#include <xtensa/espressif/esp32/esp32_u4wdh.dtsi> //mandatory include of the SoC description file, mowi kompilatorowi jakiego SoC uzywac
+
+// /memreserve/ <base> <size>;  //optional memory reservation
+
+/ {             //root node (mandatory) 
+    
+    //te dwie rzeczy są sa wymagane do dokumentacji SoC, model moze dowolna rzecz ale compatible to swietosc chyba??ale on nie ma bindingsow wiec nw, to chyba tylko taka metadata
+    compatible = "espressif,esp32", "espressif,esp32-u4wdh"; //mandatory compatible property, mowi kompilatorowi jakiego SoC uzywac, musi byc co najmniej jeden
+    model = "ESP32 AZDelivery"; //optional model property, opisuje urzadzenie, moze byc dowolna wartosc
+
+    aliases {
+        i2c0 = &i2c0; 
+        led0 = &led0;
+        led1 = &led1;
+    };
+    // w chosen wpisujemy opcjonalne node'y, ktore mowi kompilatorowi ktore node'y sa glownymi node'ami w systemie, np. glowny procesor, glowny zegar, glowny interfejs komunikacyjny itp. Musi byc co najmniej jeden node w chosen, ale moze byc ich wiecej. Kazdy node w chosen musi byc zgodny z kompatybilnoscia SoC, czyli musi byc opisany w pliku dtsi.
+    chosen {
+        zephyr,cpu = &cpu0; //optional chosen node, mowi kompilatorowi ktory procesor jest glowny, musi byc co najmniej jeden
+    };
+
+
+/*
+    i2c0 to nazwa magistrali i2c (zwykly label, czyli dowolona nazwa), ale po : i2c to juz nazwa zgodna z dokumentacją SoC, mowi kompilatorowi ze ten node to magistrala i2c, a nie np. spi czy uart, a mpu6050 to nazwa zgodna z dokumentacja czujnika, mowi kompilatorowi ze ten node to czujnik mpu6050, a nie np. eeprom czy inny czujnik
+    i2c0: i2c {
+        compa
+
+        mpu6050 {
+
+        }
+    }
+*/
+leds {
+    compatible = "gpio-leds";
+
+    led0 : led_0 { 
+        //gpio0 a nie gpio2 bo w esp jest tylko jeden kontroler 
+        gpios = <&gpio0 2 GPIO_ACTVE_HIGH>; // #gpio-cells to 2, bo &gpio2 to tylko referencja do kontrolera wlasciwego wiec sie nie liczy
+        label = "LED_GREEN";
+    };
+
+    led1 : led_1 {
+        gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
+        label = "LED_YELLOW";
+    }; 
+};
+
+    &uart0 {
+        status = "okay"; //optional status property, mowi kompilatorowi ze ten node jest aktywny, moze byc "okay" lub "disabled", domyslnie jest "okay"
+    };
+
+    //dawanie & oznacza ze nadpisujemy noda o tej nazwie ktory jest juz wczesniej zawarty w dolaczonym pliku dtsi, czyli w tym przypadku w esp32_u4wdh.dtsi, a nie tworzymy nowego noda o tej nazwie. W tym przypadku nadpisujemy noda i2c1, ktory jest juz zdefiniowany w esp32_u4wdh.dtsi, i dodajemy do niego nowe child node'y, czyli np. mpu6050. W ten sposob mozemy dodawac nowe urzadzenia do magistrali i2c bez koniecznosci tworzenia nowego noda i2c1, ktory jest juz zdefiniowany w pliku dtsi.
+   
+    &i2c1{
+        status = "okay"; //optional status property, mowi kompilatorowi ze ten node jest aktywny, moze byc "okay" lub "disabled", domyslnie jest "okay"
+    };
+    //i2c0 : 
+
+
+    
+}
