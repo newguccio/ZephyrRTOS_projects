@@ -1,0 +1,44 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+
+/ {
+	aliases {
+		led0 = &led0;
+        gnss = &multi_gnss_l76k;
+	};
+
+    chosen { 
+        //te dwa tez sa w dts wsm. Po przecinku nie ma spacji !!
+        zephyr,console = &usart2; //ustawiamy port do debugowania-ten sam ktory uzywa stlink bazowo
+        zephyr,shell-uart = &usart2; //to jest terminal do komunikacji z procesorem (z komputera)
+
+        //akurat te dwa sa juz w w pliku dts zazwyczaj jako phandle z adresem 
+        //zephyr, flash = cos;
+        //zephyr, sram = cos;
+    };
+leds{
+    compatible = "gpio-leds";
+led0: led_0 {
+    status = "okay";
+    gpios = <&gpioa 5 GPIO_ACTIVE_LOW>;
+    label = "green_led"; //label tutaj zeby latwiej bylo sie do niego odwolac w kodzie
+    
+            };
+    };
+};
+
+&usart1 {
+    status = "okay";
+    pinctrl-names = "default";
+    current-speed = <9600>;
+    pinctrl-0 = <&usart1_tx_pb6 &usart1_rx_pa10>;
+
+        multi_gnss_l76k: gnss-nmea-generic {
+
+                compatible = "gnss-nmea-generic";
+
+                status = "okay";
+
+        }; 
+};
+
+
